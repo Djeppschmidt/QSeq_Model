@@ -8,6 +8,8 @@ library(corrplot)
 library(ANCOMBC)
 library(ggplot2)
 
+# will need to install FastSpar independently !!!!
+
 # functions for analysis ####
 
 # implements FastSpar on community data from a phyloseq object
@@ -1310,7 +1312,7 @@ effectplots.grad$GFP # plot figure 2 B ####
 effectplots.grad$GTN
 effectplots.grad$GFN
 
-# stats
+# differential abundance stats ####
 
 diffabundStats(effect.Gradient1)
 diffabundStats(effect.Gradient10)
