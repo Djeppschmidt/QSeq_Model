@@ -3,26 +3,7 @@
 # data exploration (not in paper) ####
 
 # not published: exploration of other environmental factors ####
-# make list of factors in metadata for each dataset
-# cov.list<-c("pH.H2O", "C_org", "NH4_N", "NO3_N")
-# FSP.cov<-c("pH", "C_percent", "Nh4_ugPerg", "No3_ugPerg")
-# TFW.cov<-c("PH", "TOTALC", "TOTALN", "WATER")
 
-# make sure no NA exist in sample data !!!!! Also prepare filtered and aggregated data
-GLU<-prune_samples(!is.na(sample_data(GLU)$pH.H2O) | !is.na(sample_data(GLU)$C_org) | !is.na(sample_data(GLU)$NH4_N) | !is.na(sample_data(GLU)$NO3_N), GLU)
-GLU.t<-tax_glom(GLU, taxrank="Genus")
-GLU.f<-filter_taxa(GLU, function(x) mean(x)>1, prune=T)
-GLU.tf<-filter_taxa(GLU.t, function(x) mean(x)>1, prune=T)
-
-FSP<-prune_samples(!is.na(sample_data(FSP)$pH) | !is.na(sample_data(FSP)$C_percent) | !is.na(sample_data(FSP)$Nh4_ugPerg) | !is.na(sample_data(FSP)$No3_ugPerg), FSP)
-FSP.t<-tax_glom(FSP, taxrank="Genus")
-FSP.f<-filter_taxa(FSP, function(x) mean(x)>1, prune=T)
-FSP.tf<-filter_taxa(FSP.t, function(x) mean(x)>1, prune=T)
-
-TFW<-prune_samples(!is.na(sample_data(TFW)$PH) | !is.na(sample_data(TFW)$TOTALC) | !is.na(sample_data(TFW)$TOTALN) | !is.na(sample_data(TFW)$WATER), TFW)
-TFW.t<-tax_glom(TFW, taxrank="Genus")
-TFW.f<-filter_taxa(TFW, function(x) mean(x)>1, prune=T)
-TFW.tf<-filter_taxa(TFW.t, function(x) mean(x)>1, prune=T)
 # rarefaction function
 #ps.rarefy<-function(ps, sample){
 #  ps2<-ps
@@ -40,9 +21,28 @@ TFW.tf<-filter_taxa(TFW.t, function(x) mean(x)>1, prune=T)
 #FSP.comb<-gtools::permutations(4, 4, FSP.cov)
 #TFW.comb<-gtools::permutations(4, 4, TFW.cov)
 
-# Run permuted model permanova test
-# look at how each level linteracts
-#       rarefaction to different depths * aggregation * filter taxa * (aggregate + filter)
+# supplemental table 2: ####
+
+# make list of factors in metadata for each dataset
+cov.list<-c("pH.H2O", "C_org", "NH4_N", "NO3_N")
+FSP.cov<-c("pH", "C_percent", "Nh4_ugPerg", "No3_ugPerg")
+TFW.cov<-c("PH", "TOTALC", "TOTALN", "WATER")
+
+# make sure no NA exist in sample data !!!!! Also prepare filtered and aggregated data
+GLU<-prune_samples(!is.na(sample_data(GLU)$pH.H2O) | !is.na(sample_data(GLU)$C_org) | !is.na(sample_data(GLU)$NH4_N) | !is.na(sample_data(GLU)$NO3_N), GLU)
+GLU.t<-tax_glom(GLU, taxrank="Genus")
+GLU.f<-filter_taxa(GLU, function(x) mean(x)>1, prune=T)
+GLU.tf<-filter_taxa(GLU.t, function(x) mean(x)>1, prune=T)
+
+FSP<-prune_samples(!is.na(sample_data(FSP)$pH) | !is.na(sample_data(FSP)$C_percent) | !is.na(sample_data(FSP)$Nh4_ugPerg) | !is.na(sample_data(FSP)$No3_ugPerg), FSP)
+FSP.t<-tax_glom(FSP, taxrank="Genus")
+FSP.f<-filter_taxa(FSP, function(x) mean(x)>1, prune=T)
+FSP.tf<-filter_taxa(FSP.t, function(x) mean(x)>1, prune=T)
+
+TFW<-prune_samples(!is.na(sample_data(TFW)$PH) | !is.na(sample_data(TFW)$TOTALC) | !is.na(sample_data(TFW)$TOTALN) | !is.na(sample_data(TFW)$WATER), TFW)
+TFW.t<-tax_glom(TFW, taxrank="Genus")
+TFW.f<-filter_taxa(TFW, function(x) mean(x)>1, prune=T)
+TFW.tf<-filter_taxa(TFW.t, function(x) mean(x)>1, prune=T)
 
 
 
