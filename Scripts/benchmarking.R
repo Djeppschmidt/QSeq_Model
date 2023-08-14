@@ -1270,6 +1270,21 @@ effect.Gradient40<-getSummary.NG(model.out.Gradient40)
 
 # plots/stats for paper
 
+# gradient plot
+
+Mload<-data.frame("Variation"=c(rep(1,10), rep(10,10), rep(20,10),rep(30,10),rep(40,10)), "Treatment"= c(c(rep(1,5), rep(2,5)),c(rep(1,5), rep(2,5)),c(rep(1,5), rep(2,5)),c(rep(1,5), rep(2,5)),c(rep(1,5), rep(2,5))), "value"=c(apply(gradient.test1$Rep1, MARGIN=2, sum),apply(gradient.test10$Rep1, MARGIN=2, sum),apply(gradient.test20$Rep1, MARGIN=2, sum),apply(gradient.test30$Rep1, MARGIN=2, sum),apply(gradient.test40$Rep1, MARGIN=2, sum))) 
+
+Mload %>% group_by(Variation, Treatment) %>% summarize(mean=mean(value), SE=sd(value)/sqrt(5)) ->mload
+
+mload$Treatment<-as.factor(mload$Treatment)
+
+p <- ggplot(mload, aes(x=Variation, y=mean, fill=Treatment)) + 
+  geom_bar(stat="identity", position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean-SE, ymax=mean+SE), width=2,
+                position=position_dodge(8))
+
+p + theme_bw() + scale_fill_viridis_d(alpha=0.7) 
+
 # Figure 2C ####
 refcor0<-cor(t(gradient.test1$Rep1))
 refcor40<-cor(t(gradient.test40$Rep1))

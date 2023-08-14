@@ -171,6 +171,10 @@ density.plot<-data.frame("dataset"=c(rep("TFW", nsamples(TFW)), rep("GLUSEEN", n
 # plot:
 ggplot(density.plot, aes(x = log(Abundance), fill = dataset)) + geom_density(alpha = 0.5) + theme_bw() + scale_fill_viridis_d()
 
+ggplot(density.plot, aes(x = log(Abundance), fill = dataset)) + 
+  geom_density(alpha = 0.5) + 
+  theme_bw() + scale_fill_manual(values=c("#5A4A6F", "#E47250", "#9D5A6C"))
+
 # statistically evaluate homogeneity of variances:
 leveneTest(Abundance ~ dataset, data = density.plot)
 
